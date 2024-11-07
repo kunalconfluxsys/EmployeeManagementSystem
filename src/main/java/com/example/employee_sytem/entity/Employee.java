@@ -48,15 +48,23 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
     @Column(nullable = false)
-   private boolean active=false;
+    private boolean active=false;
     public Employee(Long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
+
+
+    // Convenience method to get the full name of the employee
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @ManyToOne
     @JoinColumn(name = "manager_id") // The foreign key in the employees table
     private Employee manager; // Assuming Employee can be a manager of other Employees
+
 
 }

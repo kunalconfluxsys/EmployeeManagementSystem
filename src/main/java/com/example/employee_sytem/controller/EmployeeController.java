@@ -1,7 +1,10 @@
 package com.example.employee_sytem.controller;
 
+import com.example.employee_sytem.dto.DepartmentDto;
 import com.example.employee_sytem.dto.EmployeeDto;
 import com.example.employee_sytem.dto.LeaveRequestDTO;
+import com.example.employee_sytem.dto.LeaveSummaryDTO;
+import com.example.employee_sytem.service.DepartmentService;
 import com.example.employee_sytem.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -30,6 +33,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
     private final LeaveRequestServiceInterface leaveRequestService;
+    private final DepartmentService departmentService; // Add the DepartmentService here
 
 
     //Build Add Employee REST API
@@ -123,6 +127,22 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * Fetch the department information for a specific employee by their ID.
+     *
+     * @param employeeId the ID of the employee
+     * @return ResponseEntity containing the department information
+     */
+    @GetMapping("/{employeeId}/department")
+    public ResponseEntity<DepartmentDto> getEmployeeDepartment(@PathVariable Long employeeId) {
+        DepartmentDto departmentDto = departmentService.getDepartmentForEmployee(employeeId);
+        if (departmentDto != null) {
+            return ResponseEntity.ok(departmentDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null); // Return 404 if no department is found for the employee
+        }
+    }
     // Search Employees
     @GetMapping("/search")
     public ResponseEntity<List<EmployeeDto>> searchEmployees(
@@ -166,5 +186,17 @@ public class EmployeeController {
     public ResponseEntity<List<LeaveRequestDTO>> getAllLeaveRequests() {
         List<LeaveRequestDTO> requests = leaveRequestService.getAllLeaveRequests();
         return ResponseEntity.ok(requests);
+    }
+    /**
+     * Retrieves the leave summary of an employee.
+     *
+     * @param employeeId the ID of the employee
+     * @return ResponseEntity containing the LeaveSummaryDTO and HTTP status 200 (OK)
+     */
+
+    @GetMapping("/{employeeId}/leave-summary")
+    public ResponseEntity<LeaveSummaryDTO> getLeaveSummary(@PathVariable Long employeeId) {
+        LeaveSummaryDTO leaveSummary = leaveRequestService.getLeaveSummary(employeeId);
+        return ResponseEntity.ok(leaveSummary);
     }
 }

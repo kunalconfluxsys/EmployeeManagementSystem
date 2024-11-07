@@ -11,4 +11,7 @@ public interface DepartmentService {
     List<DepartmentDto> getAllDepartments();
     DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment);
     void deleteDepartment(Long departmentId);
+
+    // Method to fetch the department for a specific employee
+    DepartmentDto getDepartmentForEmployee(Long employeeId);
 }

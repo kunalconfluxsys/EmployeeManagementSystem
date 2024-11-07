@@ -52,4 +52,6 @@ public class DepartmentController {
         departmentService.deleteDepartment(departmentId);
         return ResponseEntity.ok("Department Deleted Successfully");
     }
+
+
 }

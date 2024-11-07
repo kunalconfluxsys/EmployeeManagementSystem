@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @Entity
@@ -30,9 +31,13 @@ public class LeaveRequest {
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_id") // This is optional based on your use case
-    private Employee manager;
+
+    // Calculate the number of leave days taken
+    public long getLeaveDays() {
+        return ChronoUnit.DAYS.between(startDate, endDate) + 1; // +1 to include both start and end date
+    }
+
+
 
 
 }

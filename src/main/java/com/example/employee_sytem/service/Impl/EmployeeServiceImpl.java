@@ -10,6 +10,7 @@ import com.example.employee_sytem.repository.DepartmentRepository;
 import com.example.employee_sytem.repository.EmployeeRepository;
 import com.example.employee_sytem.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -29,9 +30,10 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
+
 public class EmployeeServiceImpl implements EmployeeService {
 
-
+    @Autowired
     private final EmployeeRepository employeeRepository;
     private  final DepartmentRepository departmentRepository;
     /**

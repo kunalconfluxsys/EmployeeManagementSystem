@@ -21,7 +21,8 @@ public class DepartmentMapper {
 
             return new DepartmentDto(
                     department.getId(),
-                    department.getName()
+                    department.getName(),
+                    department.getDescription()
             );
         }
 
@@ -39,7 +40,7 @@ public class DepartmentMapper {
             return new Department(
                     departmentDto.getId(),
                     departmentDto.getName(),
-                    null // You can handle employees mapping if necessary
+                    departmentDto.getDescription()  // Include description
             );
         }
 }

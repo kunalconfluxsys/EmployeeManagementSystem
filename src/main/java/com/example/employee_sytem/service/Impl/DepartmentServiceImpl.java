@@ -2,6 +2,7 @@ package com.example.employee_sytem.service.Impl;
 
 import com.example.employee_sytem.dto.DepartmentDto;
 import com.example.employee_sytem.entity.Department;
+import com.example.employee_sytem.entity.Employee;
 import com.example.employee_sytem.mapper.DepartmentMapper;
 import com.example.employee_sytem.repository.DepartmentRepository;
 import com.example.employee_sytem.repository.EmployeeRepository;
@@ -54,6 +55,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void deleteDepartment(Long departmentId) {
         departmentRepository.deleteById(departmentId);
+    }
+    @Override
+    public DepartmentDto getDepartmentForEmployee(Long employeeId) {
+        // Fetch employee by ID
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElse(null); // Handle case where employee doesn't exist
+        if (employee != null && employee.getDepartment() != null) {
+            // Map the department entity to DTO
+            return DepartmentMapper.mapToDepartmentDto(employee.getDepartment());
+        }
+        return null; // If employee or department is not found, return null
     }
 
 }

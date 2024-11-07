@@ -2,12 +2,14 @@ package com.example.employee_sytem.dto;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class LeaveRequestDTO {
+public class LeaveRequestDTO{
 
     private Long id;
     private Long employeeId;

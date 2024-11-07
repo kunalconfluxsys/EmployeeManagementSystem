@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest,Long> {
     List<LeaveRequest> findByEmployee(Employee employee);
+    // Find all leave requests for a specific employee with a specific status (e.g., APPROVED)
+    List<LeaveRequest> findByEmployeeAndStatus(Employee employee, String status);
 
-    List<LeaveRequestDTO> findByManagerId(Long managerId);
-
-    List<LeaveRequest> findByEmployeeIn(List<Employee> employees);
+    long countByEmployeeAndStatus(Employee employee, String status);
 }
